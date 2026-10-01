@@ -1,0 +1,110 @@
+{
+  "name": "Benimaru",
+  "displayName": "Benimaru",
+  "gameId": "benimaru",
+  "pivot": { "x": 0.5, "y": 1.0 },
+  "targetHeightPx": 168,
+  "weapon": "katana",
+  "fightingStyle": "Samurai iaido : attaques au katana + flammes cramoisies (Art de l'Ogre Flamboyant)",
+  "sourceCellSize": { "note": "cells = sheet width/cols x sheet height/rows; frames are auto-cropped and background-punched at load time" },
+  "animations": {
+    "idle": {
+      "sheet": "spritesheets/Benimaru_idle.png",
+      "gameFolder": "public/sprites/benimaru/idle",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": true
+    },
+    "walk": {
+      "sheet": "spritesheets/Benimaru_walk.png",
+      "gameFolder": "public/sprites/benimaru/walk",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": true
+    },
+    "run": {
+      "sheet": "spritesheets/Benimaru_run.png",
+      "gameFolder": "public/sprites/benimaru/run",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": true
+    },
+    "jump": {
+      "sheet": "spritesheets/Benimaru_jump.png",
+      "gameFolder": "public/sprites/benimaru/jump (frames 1-4) + public/sprites/benimaru/fall (frames 5-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "light_attack": {
+      "sheet": "spritesheets/Benimaru_light_attack.png",
+      "gameFolder": "public/sprites/benimaru/attack",
+      "note": "Combo iaido : degainage eclair + double taille au katana",
+      "frames": 8, "grid": "4x2", "fps": 14, "loop": false,
+      "combat": { "damage": 7, "knockback": 140, "activeFrames": [3, 6], "cancelWindow": [7, 8], "invincibility": null }
+    },
+    "heavy_attack": {
+      "sheet": "spritesheets/Benimaru_heavy_attack.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/heavy_attack) : taille verticale enflammee a deux mains",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": false,
+      "combat": { "damage": 14, "knockback": 280, "activeFrames": [3, 5], "cancelWindow": null, "invincibility": null }
+    },
+    "skill1_flame_slash": {
+      "sheet": "spritesheets/Benimaru_skill1.png",
+      "gameFolder": "public/sprites/benimaru/skill",
+      "note": "Lame enflammee + croissant de feu projectile",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": false,
+      "combat": { "damage": 11, "knockback": 200, "activeFrames": [3, 6], "projectile": true, "cancelWindow": [7, 8], "invincibility": null }
+    },
+    "skill2_hell_flare": {
+      "sheet": "spritesheets/Benimaru_skill2.png",
+      "gameFolder": "public/sprites/benimaru/ultimate",
+      "note": "Hell Flare : eruption de flammes noires et cramoisies",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false,
+      "combat": { "damage": 24, "knockback": 340, "activeFrames": [3, 6], "cancelWindow": null, "invincibility": [1, 4] }
+    },
+    "hurt": {
+      "sheet": "spritesheets/Benimaru_hurt.png",
+      "gameFolder": "public/sprites/benimaru/hit",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "guard": {
+      "sheet": "spritesheets/Benimaru_guard.png",
+      "gameFolder": "public/sprites/benimaru/block",
+      "note": "Garde avec le fourreau du katana",
+      "frames": 6, "grid": "3x2", "fps": 10, "loop": true
+    },
+    "knockback": {
+      "sheet": "spritesheets/Benimaru_knockback.png",
+      "gameFolder": "public/sprites/benimaru/knockdown (frames 1-6) + public/sprites/benimaru/getup (frames 7-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "ko": {
+      "sheet": "spritesheets/Benimaru_ko.png",
+      "gameFolder": "public/sprites/benimaru/dead",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "dash": {
+      "sheet": "spritesheets/Benimaru_dash.png",
+      "gameFolder": "public/sprites/benimaru/dash",
+      "frames": 6, "grid": "3x2", "fps": 14, "loop": false
+    },
+    "victory": {
+      "sheet": "spritesheets/Benimaru_victory.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/victory) : rengainage du katana puis bras croises",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "switch_in": {
+      "sheet": "spritesheets/Benimaru_switch_in.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_in), pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "switch_out": {
+      "sheet": "spritesheets/Benimaru_switch_out.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_out), pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    }
+  },
+  "hurtbox": { "width": 46, "height": 122, "offsetY": 0 },
+  "notes": [
+    "Toutes les frames sont detourees automatiquement au chargement (fond blanc -> transparent, crop alpha).",
+    "L'echelle est normalisee a l'ecran vers targetHeightPx par FighterView2D.",
+    "Les valeurs combat (damage/knockback/frames actives) sont indicatives et a synchroniser avec les stats du jeu."
+  ]
+}

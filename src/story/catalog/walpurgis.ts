@@ -1,0 +1,113 @@
+import { FighterId } from '../../types/game.ts'
+import { StorySource, type StoryMissionDef } from '../types.ts'
+
+/** LN vol. 6. Guy convoque. Clayman accuse. Le combat tranche. Rimuru garde le siège. */
+export const WALPURGIS_MISSION: StoryMissionDef = {
+  id: 'walpurgis_banquet',
+  title: 'Walpurgis',
+  arc: 'walpurgis',
+    chronology: 12,
+  location: 'Walpurgis',
+  stageId: 'walpurgis',
+  summary: 'Banquet. Guy. Clayman ment. Farmus, Eurazania, Milim : voilà pourquoi Rimuru est là. Jugement.',
+  source: StorySource.LN,
+  playable: true,
+  playableCharacter: FighterId.rimuru,
+  objectives: ['Entendre les Demon Lords', 'Vaincre Clayman', 'Comprendre le siège'],
+  rewards: { xp: 200, coins: 120 },
+  unlocks: {
+    characters: ['guy', 'ramiris', 'leon', 'daggrull', 'dino'],
+    stages: ['walpurgis'],
+    archives: ['walpurgis', 'guy', 'ramiris', 'leon', 'daggrull', 'dino', 'roy', 'clayman-end'],
+  },
+  beats: [
+    { type: 'title', text: 'WALPURGIS', sub: 'Guy Crimson a convoqué le banquet.', ms: 2400 },
+    { type: 'narration', text: 'Les Demon Lords prennent place. Le banquet commence.' },
+    { type: 'presence', who: 'guy' },
+    {
+      type: 'dialogue',
+      speaker: 'Guy Crimson',
+      speakerId: 'guy',
+      text: 'Walpurgis. Un nouveau Demon Lord. Un Clayman qui crie. Parlez. Je n\'ai pas convoqué ça pour le décorum.',
+      emotion: 'serious',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Ramiris',
+      text: 'Rimuru ! Je le savais, Clayman a encore tout gâché ! Hmph !',
+      emotion: 'excited',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Leon Cromwell',
+      text: '...Un nouveau siège change l\'équilibre. Je reste. Le bruit, lui, je m\'en passerais.',
+      emotion: 'serious',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Daggrull',
+      text: 'Si c\'est un banquet, qu\'on en finisse. Clayman. Assume.',
+      emotion: 'angry',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Dino',
+      text: 'Trop tôt pour se lever... T\'as vraiment tout gâché, Clayman.',
+      emotion: 'normal',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Roy Valentine',
+      text: 'Un jugement entre Demon Lords n\'est pas une cour humaine. L\'Ouest n\'a rien à y voter.',
+      emotion: 'serious',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Clayman',
+      text: 'Ce slime a tué un Demon Lord ! Il a faussé Milim, Carrion, Frey ! Il a volé un siège !',
+      emotion: 'angry',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Milim Nava',
+      speakerId: 'milim',
+      text: 'Rimuru est mon ami. Toi, tu as voulu me tirer comme une poupée. C\'est fini.',
+      emotion: 'angry',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Rimuru',
+      speakerId: 'rimuru',
+      text: 'Je suis là parce que Farmus a tué les miens, parce que Clayman a poussé Eurazania, et parce que je ne suis plus un secret de forêt.',
+      emotion: 'serious',
+    },
+    { type: 'presence', who: 'none' },
+    { type: 'heal' },
+    { type: 'spawn', enemy: 'clayman', x: 1400 },
+    { type: 'hint', text: 'Clayman. Au banquet, le jugement passe aussi par la force.' },
+    { type: 'clear' },
+    { type: 'presence', who: 'guy' },
+    {
+      type: 'dialogue',
+      speaker: 'Guy Crimson',
+      speakerId: 'guy',
+      text: 'Clayman n\'a plus de siège. Rimuru Tempest : tu restes. Walpurgis a tranché. Que l\'Ouest s\'en arrange.',
+      emotion: 'serious',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Great Sage',
+      speakerId: 'rimuru',
+      text: 'Réponse. Walpurgis clos. Clayman : hors jeu. Rimuru : reconnu parmi les Demon Lords. Jura n\'est plus seule.',
+      emotion: 'serious',
+    },
+    {
+      type: 'unlock',
+      unlocks: {
+        characters: ['guy', 'ramiris', 'leon', 'daggrull', 'dino'],
+        archives: ['walpurgis', 'guy', 'clayman-end'],
+      },
+    },
+    { type: 'complete' },
+  ],
+}

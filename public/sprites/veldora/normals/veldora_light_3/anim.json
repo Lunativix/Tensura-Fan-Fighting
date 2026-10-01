@@ -1,0 +1,8 @@
+{
+  "fighterId": "veldora",
+  "animId": "veldora_light_3",
+  "kind": "normal",
+  "status": "READY FOR ART",
+  "note": "Unique normals. Runtime may still fallback to rimuru/milim until these PNGs exist.",
+  "dropIn": "alternate path; clip id stays veldora_light_3"
+}

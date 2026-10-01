@@ -1,0 +1,23 @@
+{
+  "name": "tensura-fan-fighting",
+  "private": true,
+  "version": "0.9.2",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "tsc --noEmit",
+    "index-sprites": "node scripts/index-sprites.mjs",
+    "prepare-skill-slots": "node scripts/prepare-skill-slots.mjs",
+    "validate-sprites": "node scripts/validate-sprites.mjs"
+  },
+  "devDependencies": {
+    "pngjs": "^7.0.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0"
+  },
+  "dependencies": {
+    "phaser": "^3.90.0"
+  }
+}

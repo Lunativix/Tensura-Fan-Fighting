@@ -1,0 +1,8 @@
+{
+  "fighterId": "benimaru",
+  "animId": "benimaru_air_light",
+  "kind": "normal",
+  "status": "READY FOR ART",
+  "note": "Unique normals. Runtime may still fallback to rimuru/milim until these PNGs exist.",
+  "dropIn": "alternate path; clip id stays benimaru_air_light"
+}

@@ -1,0 +1,27 @@
+{
+  "fighterId": "rimuru",
+  "attackId": "water-blade",
+  "animId": "rimuru_water_blade",
+  "skillName": "Water Blade",
+  "slot": 0,
+  "type": "sequence",
+  "status": "READY FOR ART",
+  "fps": 60,
+  "loop": false,
+  "projectileInSprite": false,
+  "timing": {
+    "source": "AttackData is the source of truth",
+    "releaseFrame": "attack.startup",
+    "startupStart": "0",
+    "startupEnd": "releaseFrame - 1",
+    "activeStart": "releaseFrame",
+    "recoveryStart": "activeEnd + 1"
+  },
+  "vfx": {
+    "cast": "energy_charge when startup >= 8",
+    "release": "AttackData.vfx",
+    "travel": "rangedShape for projectile/beam",
+    "impact": "impact_ultimate on slot 4"
+  },
+  "dropIn": "001.png then npm run index-sprites"
+}

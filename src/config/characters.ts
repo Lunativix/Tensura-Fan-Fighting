@@ -1,0 +1,276 @@
+import { Element, type ElementId } from '../combat/elements.ts'
+import { FighterId, type FighterIdValue } from '../types/game.ts'
+
+export const Archetype = {
+  BALANCED: 'BALANCED',
+  POWER: 'POWER',
+  RUSH: 'RUSH',
+  TECHNICAL: 'TECHNICAL',
+  ZONER: 'ZONER',
+  GRAPPLER: 'GRAPPLER',
+  MAGE: 'MAGE',
+  AERIAL: 'AERIAL',
+  COUNTER: 'COUNTER',
+} as const
+
+export type ArchetypeId = (typeof Archetype)[keyof typeof Archetype]
+
+export interface CharacterDefinition {
+  id: FighterIdValue
+  name: string
+  description: string
+  playable: boolean
+  color: number
+  accent: number
+  maxHp: number
+  maxEnergy: number
+  speed: number
+  jumpForce: number
+  defense: number
+  doubleJump: boolean
+  airDash: boolean
+  power: number
+  mobility: number
+  canAbsorb: boolean
+  resistances: Partial<Record<ElementId, number>>
+  styles: readonly ArchetypeId[]
+  /** Registry id for a character-specific battle intro. Falls back to `character_intro`. */
+  cinematicIntro?: string
+  /** Registry id for a character-specific Ultimate cinematic. Falls back to `ultimate`. */
+  cinematicUltimate?: string
+}
+
+export const CHARACTERS: Record<FighterIdValue, CharacterDefinition> = {
+  rimuru: {
+    id: FighterId.rimuru,
+    name: 'Rimuru',
+    description: 'Balanced technical slime. Absorption and versatile magic.',
+    playable: true,
+    color: 0x4fc3f7,
+    accent: 0x1565c0,
+    maxHp: 1000,
+    maxEnergy: 100,
+    speed: 280,
+    jumpForce: 650,
+    defense: 12,
+    doubleJump: true,
+    airDash: true,
+    power: 8,
+    mobility: 8,
+    canAbsorb: true,
+    resistances: { [Element.WATER]: 0.35, [Element.MAGIC]: 0.15 },
+    styles: [Archetype.BALANCED, Archetype.TECHNICAL],
+    cinematicIntro: 'rimuru_intro',
+    cinematicUltimate: 'ultimate_rimuru',
+  },
+  milim: {
+    id: FighterId.milim,
+    name: 'Milim',
+    description: 'Aggressive dragon princess. Raw power and rushdown.',
+    playable: true,
+    color: 0xff6b9d,
+    accent: 0xc2185b,
+    maxHp: 1100,
+    maxEnergy: 90,
+    speed: 310,
+    jumpForce: 680,
+    defense: 8,
+    doubleJump: true,
+    airDash: true,
+    power: 10,
+    mobility: 9,
+    canAbsorb: false,
+    resistances: { [Element.FIRE]: 0.2, [Element.PHYSICAL]: 0.05 },
+    styles: [Archetype.POWER, Archetype.RUSH],
+    cinematicIntro: 'milim_intro',
+    cinematicUltimate: 'ultimate_milim',
+  },
+  diablo: {
+    id: FighterId.diablo,
+    name: 'Diablo',
+    description: 'Technical demon. Magic and counters.',
+    playable: true,
+    color: 0x6a1b9a,
+    accent: 0x311b92,
+    maxHp: 950,
+    maxEnergy: 120,
+    speed: 300,
+    jumpForce: 640,
+    defense: 10,
+    doubleJump: true,
+    airDash: true,
+    power: 7,
+    mobility: 9,
+    canAbsorb: false,
+    resistances: { [Element.DARK]: 0.4, [Element.MAGIC]: 0.2 },
+    styles: [Archetype.TECHNICAL, Archetype.MAGE, Archetype.COUNTER],
+  },
+  benimaru: {
+    id: FighterId.benimaru,
+    name: 'Benimaru',
+    description: 'Flame general. Rush and fire pressure.',
+    playable: true,
+    color: 0xff5722,
+    accent: 0xb71c1c,
+    maxHp: 1050,
+    maxEnergy: 100,
+    speed: 300,
+    jumpForce: 660,
+    defense: 10,
+    doubleJump: true,
+    airDash: true,
+    power: 9,
+    mobility: 9,
+    canAbsorb: false,
+    resistances: { [Element.FIRE]: 0.45 },
+    styles: [Archetype.RUSH, Archetype.POWER],
+  },
+  shion: {
+    id: FighterId.shion,
+    name: 'Shion',
+    description: 'Heavy melee. Grappler power.',
+    playable: true,
+    color: 0x7e57c2,
+    accent: 0x4527a0,
+    maxHp: 1150,
+    maxEnergy: 80,
+    speed: 240,
+    jumpForce: 600,
+    defense: 16,
+    doubleJump: false,
+    airDash: false,
+    power: 10,
+    mobility: 4,
+    canAbsorb: false,
+    resistances: { [Element.PHYSICAL]: 0.2 },
+    styles: [Archetype.POWER, Archetype.GRAPPLER],
+  },
+  veldora: {
+    id: FighterId.veldora,
+    name: 'Veldora',
+    description: 'Storm dragon. Zoning and area control.',
+    playable: true,
+    color: 0x26c6da,
+    accent: 0x006064,
+    maxHp: 1300,
+    maxEnergy: 110,
+    speed: 220,
+    jumpForce: 620,
+    defense: 14,
+    doubleJump: true,
+    airDash: false,
+    power: 10,
+    mobility: 5,
+    canAbsorb: false,
+    resistances: { [Element.LIGHTNING]: 0.35, [Element.WIND]: 0.2 },
+    styles: [Archetype.POWER, Archetype.ZONER],
+  },
+  hinata: {
+    id: FighterId.hinata,
+    name: 'Hinata',
+    description: 'Holy knight. Technical counters.',
+    playable: true,
+    color: 0xec407a,
+    accent: 0x880e4f,
+    maxHp: 980,
+    maxEnergy: 100,
+    speed: 290,
+    jumpForce: 650,
+    defense: 11,
+    doubleJump: true,
+    airDash: true,
+    power: 8,
+    mobility: 8,
+    canAbsorb: false,
+    resistances: { [Element.LIGHT]: 0.3, [Element.DARK]: 0.15 },
+    styles: [Archetype.TECHNICAL, Archetype.COUNTER],
+  },
+  guy: {
+    id: FighterId.guy,
+    name: 'Guy',
+    description: 'Primordial. Technical power.',
+    playable: true,
+    color: 0xef5350,
+    accent: 0x4a148c,
+    maxHp: 1200,
+    maxEnergy: 120,
+    speed: 270,
+    jumpForce: 640,
+    defense: 13,
+    doubleJump: true,
+    airDash: true,
+    power: 10,
+    mobility: 7,
+    canAbsorb: false,
+    resistances: { [Element.UNIQUE]: 0.2, [Element.DARK]: 0.15 },
+    styles: [Archetype.TECHNICAL, Archetype.POWER],
+  },
+  shuna: {
+    id: FighterId.shuna,
+    name: 'Shuna',
+    description: 'Support mage. Holy arts and buffs.',
+    playable: true,
+    color: 0xf8bbd0,
+    accent: 0xc2185b,
+    maxHp: 920,
+    maxEnergy: 130,
+    speed: 270,
+    jumpForce: 640,
+    defense: 9,
+    doubleJump: true,
+    airDash: true,
+    power: 6,
+    mobility: 7,
+    canAbsorb: false,
+    resistances: { [Element.LIGHT]: 0.35, [Element.MAGIC]: 0.2 },
+    styles: [Archetype.MAGE, Archetype.TECHNICAL],
+  },
+  souei: {
+    id: FighterId.souei,
+    name: 'Souei',
+    description: 'Shadow assassin. Mobility and clones.',
+    playable: true,
+    color: 0x455a64,
+    accent: 0x263238,
+    maxHp: 960,
+    maxEnergy: 110,
+    speed: 340,
+    jumpForce: 670,
+    defense: 8,
+    doubleJump: true,
+    airDash: true,
+    power: 7,
+    mobility: 10,
+    canAbsorb: false,
+    resistances: { [Element.DARK]: 0.25 },
+    styles: [Archetype.RUSH, Archetype.TECHNICAL],
+  },
+  hakurou: {
+    id: FighterId.hakurou,
+    name: 'Hakurou',
+    description: 'Sword sage. Technical melee.',
+    playable: true,
+    color: 0xb0bec5,
+    accent: 0x546e7a,
+    maxHp: 1000,
+    maxEnergy: 95,
+    speed: 300,
+    jumpForce: 630,
+    defense: 11,
+    doubleJump: true,
+    airDash: true,
+    power: 8,
+    mobility: 8,
+    canAbsorb: false,
+    resistances: { [Element.PHYSICAL]: 0.15 },
+    styles: [Archetype.TECHNICAL, Archetype.BALANCED],
+  },
+}
+
+export const PLAYABLE_FIGHTERS: FighterIdValue[] = (Object.values(CHARACTERS) as CharacterDefinition[])
+  .filter((c) => c.playable)
+  .map((c) => c.id)
+
+export function getCharacter(id: FighterIdValue): CharacterDefinition {
+  return CHARACTERS[id]
+}

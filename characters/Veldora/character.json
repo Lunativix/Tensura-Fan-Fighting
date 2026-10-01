@@ -1,0 +1,111 @@
+{
+  "name": "Veldora",
+  "displayName": "Veldora Tempest",
+  "gameId": "veldora",
+  "pivot": { "x": 0.5, "y": 1.0 },
+  "targetHeightPx": 168,
+  "weapon": "mains nues + magie de tempete (vent et foudre)",
+  "fightingStyle": "Dragon des tempetes : coups puissants theatral, rafales de vent tranchant et foudre, exuberance totale",
+  "sourceCellSize": { "note": "cells = sheet width/cols x sheet height/rows; frames are auto-cropped and background-punched at load time" },
+  "animations": {
+    "idle": {
+      "sheet": "spritesheets/Veldora_idle.png",
+      "gameFolder": "public/sprites/veldora/idle",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": true
+    },
+    "walk": {
+      "sheet": "spritesheets/Veldora_walk.png",
+      "gameFolder": "public/sprites/veldora/walk",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": true
+    },
+    "run": {
+      "sheet": "spritesheets/Veldora_run.png",
+      "gameFolder": "public/sprites/veldora/run",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": true
+    },
+    "jump": {
+      "sheet": "spritesheets/Veldora_jump.png",
+      "gameFolder": "public/sprites/veldora/jump (frames 1-4) + public/sprites/veldora/fall (frames 5-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "light_attack": {
+      "sheet": "spritesheets/Veldora_light_attack.png",
+      "gameFolder": "public/sprites/veldora/attack",
+      "note": "Combo poings tempete : crochet + revers + coup descendant, trainees de vent",
+      "frames": 8, "grid": "4x2", "fps": 14, "loop": false,
+      "combat": { "damage": 9, "knockback": 170, "activeFrames": [2, 7], "cancelWindow": [7, 8], "invincibility": null }
+    },
+    "heavy_attack": {
+      "sheet": "spritesheets/Veldora_heavy_attack.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/heavy_attack) : poing charge de foudre, impact explosif au sol",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 18, "knockback": 350, "activeFrames": [5, 6], "cancelWindow": null, "invincibility": null }
+    },
+    "skill1_storm_blades": {
+      "sheet": "spritesheets/Veldora_skill1.png",
+      "gameFolder": "public/sprites/veldora/skill",
+      "note": "Lames de tempete : croissants de vent tranchant projetes vers l'avant",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": false,
+      "combat": { "damage": 11, "knockback": 210, "activeFrames": [4, 6], "projectile": true, "cancelWindow": [8, 8], "invincibility": null }
+    },
+    "skill2_storm_dragon_roar": {
+      "sheet": "spritesheets/Veldora_skill2.png",
+      "gameFolder": "public/sprites/veldora/ultimate",
+      "note": "Rugissement du dragon des tempetes : tornade massive chargee de foudre, aura draconique",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 27, "knockback": 380, "activeFrames": [5, 7], "cancelWindow": null, "invincibility": [2, 4] }
+    },
+    "hurt": {
+      "sheet": "spritesheets/Veldora_hurt.png",
+      "gameFolder": "public/sprites/veldora/hit",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "guard": {
+      "sheet": "spritesheets/Veldora_guard.png",
+      "gameFolder": "public/sprites/veldora/block",
+      "note": "Garde bras croises entoures d'un bouclier de vent tourbillonnant",
+      "frames": 6, "grid": "3x2", "fps": 10, "loop": true
+    },
+    "knockback": {
+      "sheet": "spritesheets/Veldora_knockback.png",
+      "gameFolder": "public/sprites/veldora/knockdown (frames 1-6) + public/sprites/veldora/getup (frames 7-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "ko": {
+      "sheet": "spritesheets/Veldora_ko.png",
+      "gameFolder": "public/sprites/veldora/dead",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "dash": {
+      "sheet": "spritesheets/Veldora_dash.png",
+      "gameFolder": "public/sprites/veldora/dash",
+      "note": "Ruee propulsee par le vent avec trainee d'eclairs",
+      "frames": 6, "grid": "3x2", "fps": 14, "loop": false
+    },
+    "victory": {
+      "sheet": "spritesheets/Veldora_victory.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/victory) : grand rire theatral bras croises, cape au vent",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "switch_in": {
+      "sheet": "spritesheets/Veldora_switch_in.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_in) : arrivee dans un tourbillon de vent et d'eclairs, pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "switch_out": {
+      "sheet": "spritesheets/Veldora_switch_out.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_out) : disparition en bourrasque, pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    }
+  },
+  "hurtbox": { "width": 46, "height": 128, "offsetY": 0 },
+  "notes": [
+    "Toutes les frames sont detourees automatiquement au chargement (fond blanc -> transparent, crop alpha).",
+    "L'echelle est normalisee a l'ecran vers targetHeightPx par FighterView2D.",
+    "Les valeurs combat (damage/knockback/frames actives) sont indicatives et a synchroniser avec les stats du jeu."
+  ]
+}

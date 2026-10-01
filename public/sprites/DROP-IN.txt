@@ -1,0 +1,96 @@
+Un dossier par action, images numerotees dedans.
+
+  public/sprites/<id>/<action>/01.png
+  public/sprites/<id>/<action>/02.png
+  ...
+
+<id> :
+  rimuru milim diablo benimaru shion veldora hinata guy shuna souei hakurou
+
+<action> :
+  idle walk run jump fall dash attack skill ultimate block hit knockdown getup dead
+
+Exemple Rimuru, 12 frames de corps-a-corps :
+
+  public/sprites/rimuru/attack/01.png
+  ...
+  public/sprites/rimuru/attack/12.png
+
+Alias acceptes :
+  melee/  -> attack
+  punch/  -> attack
+  stun/   -> hit
+
+Noms : 001.png (recommande), 01.png, 1.png, ou .webp
+Si idle/ est vide, attack/001.png sert de pose de base (debout).
+Fond blanc : le jeu l'enleve tout seul (le blanc touche aux bords de l'image).
+PNG transparent reste le mieux. Evite que le perso touche le bord de l'image
+si ses vetements sont tres blancs.
+
+
+Tu peux remplir seulement certaines actions. Les dossiers vides sont ignores ;
+le jeu garde la silhouette pour ce qui manque.
+run sans images reprend walk.
+
+---
+Skills — 55 emplacements READY FOR ART (jamais DONE auto) :
+
+  public/sprites/<id>/<animId>/001.png
+  public/sprites/<id>/<formId>/<animId>/001.png
+
+Chaque dossier a deja anim.json + .gitkeep.
+Drop 001.png… puis :
+
+  npm run index-sprites
+
+Le PNG specifique remplace automatiquement le fallback.
+Sans PNG : status runtime = READY FOR ART, overlay [MISSING SKILL ANIMATION]
+Character / Form / Skill / Anim. Le projectile n'est PAS dessine dans le sprite
+(spawn a releaseFrame = attack.startup).
+
+Apres un nouvel id de skill :
+
+  npm run prepare-skill-slots
+
+Exemples Rimuru :
+
+  public/sprites/rimuru/rimuru_water_blade/001.png
+  public/sprites/rimuru/rimuru-slime/rimuru_water_blade/001.png
+  public/sprites/rimuru/rimuru-shizu/rimuru_water_blade/001.png
+
+Normals uniques (clip id `rimuru_light_1`, etc.) :
+
+  public/sprites/rimuru/rimuru_light_1/001.png
+  public/sprites/rimuru/normals/rimuru_light_1/001.png   (alias)
+
+Tant que le dossier perso est vide, le runtime peut encore fallback Rimuru/Milim
+([FALLBACK] dans le debug F3). OWN dès qu'un PNG valide est indexé.
+
+---
+Spritesheet (optionnel) :
+
+  public/sprites/rimuru/rimuru_water_blade/sheet.png
+  + anim.json { "type": "spritesheet", "frameWidth": ..., "frameHeight": ..., "frames": ... }
+
+Sans frameWidth/frameHeight : ART INVALID. Le gameplay (AttackData) reste la source
+des timings. anim.json documente fps/anchor, il ne retune pas silencieusement le kit.
+
+---
+Validation :
+
+  npm run index-sprites
+  npm run validate-sprites
+
+États auto : READY FOR ART | ART INVALID | ART COMPLETE
+Jamais auto : INTEGRATED, TESTED, DONE.
+
+Format canonique des frames : 001.png, 002.png, … (frame_001.png accepté).
+Tri numérique. Trou = MISSING_FRAME_014. Canvas différent = INVALID_CANVAS_SIZE.
+Ne pas interpoler les frames manquantes.
+
+Preview debug : Shift+F3 (ne remplace pas F5 reset / F7 pause / F8 step).
+Shift+F5 projectiles, Shift+F6 VFX, Shift+F7 SFX, Shift+F8 camera.
+
+Les PNG de skills / normals uniques sont joués tels quels (pas de punch fond blanc,
+pas de recadrage). Le punch studio reste uniquement pour idle/walk/attack historiques.
+

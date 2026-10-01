@@ -1,0 +1,111 @@
+{
+  "name": "Shuna",
+  "displayName": "Shuna",
+  "gameId": "shuna",
+  "pivot": { "x": 0.5, "y": 1.0 },
+  "targetHeightPx": 168,
+  "weapon": "magie des esprits (orbes et barrieres de lumiere)",
+  "fightingStyle": "Mage sacree : orbes de lumiere a tete chercheuse, barrieres protectrices, grace et precision",
+  "sourceCellSize": { "note": "cells = sheet width/cols x sheet height/rows; frames are auto-cropped and background-punched at load time" },
+  "animations": {
+    "idle": {
+      "sheet": "spritesheets/Shuna_idle.png",
+      "gameFolder": "public/sprites/shuna/idle",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": true
+    },
+    "walk": {
+      "sheet": "spritesheets/Shuna_walk.png",
+      "gameFolder": "public/sprites/shuna/walk",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": true
+    },
+    "run": {
+      "sheet": "spritesheets/Shuna_run.png",
+      "gameFolder": "public/sprites/shuna/run",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": true
+    },
+    "jump": {
+      "sheet": "spritesheets/Shuna_jump.png",
+      "gameFolder": "public/sprites/shuna/jump (frames 1-4) + public/sprites/shuna/fall (frames 5-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "light_attack": {
+      "sheet": "spritesheets/Shuna_light_attack.png",
+      "gameFolder": "public/sprites/shuna/attack",
+      "note": "Rafale d'orbes de lumiere : projections rapides de spheres dorees a courte portee",
+      "frames": 8, "grid": "4x2", "fps": 14, "loop": false,
+      "combat": { "damage": 7, "knockback": 140, "activeFrames": [3, 6], "cancelWindow": [6, 8], "invincibility": null }
+    },
+    "heavy_attack": {
+      "sheet": "spritesheets/Shuna_heavy_attack.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/heavy_attack) : lance de lumiere concentree, perce-garde",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 15, "knockback": 300, "activeFrames": [4, 5], "cancelWindow": null, "invincibility": null }
+    },
+    "skill1_holy_orbs": {
+      "sheet": "spritesheets/Shuna_skill1.png",
+      "gameFolder": "public/sprites/shuna/skill",
+      "note": "Orbes sacrees : plusieurs spheres de lumiere a tete chercheuse lancees vers l'ennemi",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": false,
+      "combat": { "damage": 10, "knockback": 180, "activeFrames": [4, 7], "projectile": true, "cancelWindow": [8, 8], "invincibility": null }
+    },
+    "skill2_grand_holy_light": {
+      "sheet": "spritesheets/Shuna_skill2.png",
+      "gameFolder": "public/sprites/shuna/ultimate",
+      "note": "Grande lumiere sacree : colonne de lumiere doree massive avec cercles magiques",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 24, "knockback": 340, "activeFrames": [4, 6], "cancelWindow": null, "invincibility": [2, 4] }
+    },
+    "hurt": {
+      "sheet": "spritesheets/Shuna_hurt.png",
+      "gameFolder": "public/sprites/shuna/hit",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "guard": {
+      "sheet": "spritesheets/Shuna_guard.png",
+      "gameFolder": "public/sprites/shuna/block",
+      "note": "Barriere de lumiere circulaire doree",
+      "frames": 6, "grid": "3x2", "fps": 10, "loop": true
+    },
+    "knockback": {
+      "sheet": "spritesheets/Shuna_knockback.png",
+      "gameFolder": "public/sprites/shuna/knockdown (frames 1-6) + public/sprites/shuna/getup (frames 7-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "ko": {
+      "sheet": "spritesheets/Shuna_ko.png",
+      "gameFolder": "public/sprites/shuna/dead",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "dash": {
+      "sheet": "spritesheets/Shuna_dash.png",
+      "gameFolder": "public/sprites/shuna/dash",
+      "note": "Glissade gracieuse avec trainee de petales et de lumiere",
+      "frames": 6, "grid": "3x2", "fps": 14, "loop": false
+    },
+    "victory": {
+      "sheet": "spritesheets/Shuna_victory.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/victory) : reverence elegante puis sourire, lumiere douce",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "switch_in": {
+      "sheet": "spritesheets/Shuna_switch_in.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_in) : apparition dans un voile de lumiere, pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "switch_out": {
+      "sheet": "spritesheets/Shuna_switch_out.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_out) : disparition en particules dorees, pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    }
+  },
+  "hurtbox": { "width": 38, "height": 104, "offsetY": 0 },
+  "notes": [
+    "Toutes les frames sont detourees automatiquement au chargement (fond blanc -> transparent, crop alpha).",
+    "L'echelle est normalisee a l'ecran vers targetHeightPx par FighterView2D.",
+    "Les valeurs combat (damage/knockback/frames actives) sont indicatives et a synchroniser avec les stats du jeu."
+  ]
+}

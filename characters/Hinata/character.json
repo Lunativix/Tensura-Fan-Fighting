@@ -1,0 +1,110 @@
+{
+  "name": "Hinata",
+  "displayName": "Hinata Sakaguchi",
+  "gameId": "hinata",
+  "pivot": { "x": 0.5, "y": 1.0 },
+  "targetHeightPx": 168,
+  "weapon": "rapiere (Moonlight)",
+  "fightingStyle": "Escrime sainte : estocades chirurgicales, lumiere sacree, execution froide et precise",
+  "sourceCellSize": { "note": "cells = sheet width/cols x sheet height/rows; frames are auto-cropped and background-punched at load time" },
+  "animations": {
+    "idle": {
+      "sheet": "spritesheets/Hinata_idle.png",
+      "gameFolder": "public/sprites/hinata/idle",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": true
+    },
+    "walk": {
+      "sheet": "spritesheets/Hinata_walk.png",
+      "gameFolder": "public/sprites/hinata/walk",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": true
+    },
+    "run": {
+      "sheet": "spritesheets/Hinata_run.png",
+      "gameFolder": "public/sprites/hinata/run",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": true
+    },
+    "jump": {
+      "sheet": "spritesheets/Hinata_jump.png",
+      "gameFolder": "public/sprites/hinata/jump (frames 1-4) + public/sprites/hinata/fall (frames 5-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "light_attack": {
+      "sheet": "spritesheets/Hinata_light_attack.png",
+      "gameFolder": "public/sprites/hinata/attack",
+      "note": "Combo rapiere : double estocade eclair + taille laterale",
+      "frames": 8, "grid": "4x2", "fps": 14, "loop": false,
+      "combat": { "damage": 8, "knockback": 140, "activeFrames": [3, 5], "cancelWindow": [6, 8], "invincibility": null }
+    },
+    "heavy_attack": {
+      "sheet": "spritesheets/Hinata_heavy_attack.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/heavy_attack) : estocade chargee de lumiere sainte, percee longue portee",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 15, "knockback": 290, "activeFrames": [4, 5], "cancelWindow": null, "invincibility": null }
+    },
+    "skill1_holy_thrust": {
+      "sheet": "spritesheets/Hinata_skill1.png",
+      "gameFolder": "public/sprites/hinata/skill",
+      "note": "Lance de lumiere sacree projetee depuis la pointe de la rapiere",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": false,
+      "combat": { "damage": 10, "knockback": 180, "activeFrames": [4, 7], "projectile": true, "cancelWindow": [8, 8], "invincibility": null }
+    },
+    "skill2_holy_execution": {
+      "sheet": "spritesheets/Hinata_skill2.png",
+      "gameFolder": "public/sprites/hinata/ultimate",
+      "note": "Execution sainte : colonnes de lumiere + estocade finale desintegrante",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 24, "knockback": 330, "activeFrames": [4, 6], "cancelWindow": null, "invincibility": [2, 4] }
+    },
+    "hurt": {
+      "sheet": "spritesheets/Hinata_hurt.png",
+      "gameFolder": "public/sprites/hinata/hit",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "guard": {
+      "sheet": "spritesheets/Hinata_guard.png",
+      "gameFolder": "public/sprites/hinata/block",
+      "note": "Garde avec barriere de lumiere devant la rapiere",
+      "frames": 6, "grid": "3x2", "fps": 10, "loop": true
+    },
+    "knockback": {
+      "sheet": "spritesheets/Hinata_knockback.png",
+      "gameFolder": "public/sprites/hinata/knockdown (frames 1-6) + public/sprites/hinata/getup (frames 7-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "ko": {
+      "sheet": "spritesheets/Hinata_ko.png",
+      "gameFolder": "public/sprites/hinata/dead",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "dash": {
+      "sheet": "spritesheets/Hinata_dash.png",
+      "gameFolder": "public/sprites/hinata/dash",
+      "frames": 6, "grid": "3x2", "fps": 14, "loop": false
+    },
+    "victory": {
+      "sheet": "spritesheets/Hinata_victory.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/victory) : rengaine la rapiere puis salut d'escrime impassible",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "switch_in": {
+      "sheet": "spritesheets/Hinata_switch_in.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_in), pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "switch_out": {
+      "sheet": "spritesheets/Hinata_switch_out.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_out), pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    }
+  },
+  "hurtbox": { "width": 42, "height": 116, "offsetY": 0 },
+  "notes": [
+    "Toutes les frames sont detourees automatiquement au chargement (fond blanc -> transparent, crop alpha).",
+    "L'echelle est normalisee a l'ecran vers targetHeightPx par FighterView2D.",
+    "Les valeurs combat (damage/knockback/frames actives) sont indicatives et a synchroniser avec les stats du jeu."
+  ]
+}

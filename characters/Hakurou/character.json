@@ -1,0 +1,110 @@
+{
+  "name": "Hakurou",
+  "displayName": "Hakurou",
+  "gameId": "hakurou",
+  "pivot": { "x": 0.5, "y": 1.0 },
+  "targetHeightPx": 168,
+  "weapon": "katana",
+  "fightingStyle": "Maitre iaido : degainages eclairs, contre-attaques precises, lames de vent",
+  "sourceCellSize": { "note": "cells = sheet width/cols x sheet height/rows; frames are auto-cropped and background-punched at load time" },
+  "animations": {
+    "idle": {
+      "sheet": "spritesheets/Hakurou_idle.png",
+      "gameFolder": "public/sprites/hakurou/idle",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": true
+    },
+    "walk": {
+      "sheet": "spritesheets/Hakurou_walk.png",
+      "gameFolder": "public/sprites/hakurou/walk",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": true
+    },
+    "run": {
+      "sheet": "spritesheets/Hakurou_run.png",
+      "gameFolder": "public/sprites/hakurou/run",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": true
+    },
+    "jump": {
+      "sheet": "spritesheets/Hakurou_jump.png",
+      "gameFolder": "public/sprites/hakurou/jump (frames 1-4) + public/sprites/hakurou/fall (frames 5-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "light_attack": {
+      "sheet": "spritesheets/Hakurou_light_attack.png",
+      "gameFolder": "public/sprites/hakurou/attack",
+      "note": "Combo iaido : degainage horizontal + taille diagonale montante",
+      "frames": 8, "grid": "4x2", "fps": 14, "loop": false,
+      "combat": { "damage": 8, "knockback": 150, "activeFrames": [3, 5], "cancelWindow": [6, 8], "invincibility": null }
+    },
+    "heavy_attack": {
+      "sheet": "spritesheets/Hakurou_heavy_attack.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/heavy_attack) : taille verticale a deux mains + onde de choc au sol",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 15, "knockback": 300, "activeFrames": [4, 5], "cancelWindow": null, "invincibility": null }
+    },
+    "skill1_wind_crescent": {
+      "sheet": "spritesheets/Hakurou_skill1.png",
+      "gameFolder": "public/sprites/hakurou/skill",
+      "note": "Croissant de vent turquoise projete par degainage iaido",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": false,
+      "combat": { "damage": 10, "knockback": 190, "activeFrames": [4, 7], "projectile": true, "cancelWindow": [8, 8], "invincibility": null }
+    },
+    "skill2_secret_sword_art": {
+      "sheet": "spritesheets/Hakurou_skill2.png",
+      "gameFolder": "public/sprites/hakurou/ultimate",
+      "note": "Art secret : dash fantome + tempete de tailles croisees, rengainage final",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 23, "knockback": 320, "activeFrames": [4, 6], "cancelWindow": null, "invincibility": [2, 4] }
+    },
+    "hurt": {
+      "sheet": "spritesheets/Hakurou_hurt.png",
+      "gameFolder": "public/sprites/hakurou/hit",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "guard": {
+      "sheet": "spritesheets/Hakurou_guard.png",
+      "gameFolder": "public/sprites/hakurou/block",
+      "note": "Garde avec le fourreau tenu a deux mains",
+      "frames": 6, "grid": "3x2", "fps": 10, "loop": true
+    },
+    "knockback": {
+      "sheet": "spritesheets/Hakurou_knockback.png",
+      "gameFolder": "public/sprites/hakurou/knockdown (frames 1-6) + public/sprites/hakurou/getup (frames 7-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "ko": {
+      "sheet": "spritesheets/Hakurou_ko.png",
+      "gameFolder": "public/sprites/hakurou/dead",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "dash": {
+      "sheet": "spritesheets/Hakurou_dash.png",
+      "gameFolder": "public/sprites/hakurou/dash",
+      "frames": 6, "grid": "3x2", "fps": 14, "loop": false
+    },
+    "victory": {
+      "sheet": "spritesheets/Hakurou_victory.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/victory) : rengainage digne puis bras croises dans les manches",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "switch_in": {
+      "sheet": "spritesheets/Hakurou_switch_in.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_in), pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "switch_out": {
+      "sheet": "spritesheets/Hakurou_switch_out.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_out), pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    }
+  },
+  "hurtbox": { "width": 44, "height": 118, "offsetY": 0 },
+  "notes": [
+    "Toutes les frames sont detourees automatiquement au chargement (fond blanc -> transparent, crop alpha).",
+    "L'echelle est normalisee a l'ecran vers targetHeightPx par FighterView2D.",
+    "Les valeurs combat (damage/knockback/frames actives) sont indicatives et a synchroniser avec les stats du jeu."
+  ]
+}

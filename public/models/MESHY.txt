@@ -1,0 +1,16 @@
+Drop a Meshy (or equivalent) GLB here. Original placeholder GLBs are legal stand-ins, not Tensura assets.
+
+Folder:
+  public/models/<fighterId>/lod0.glb   high
+  public/models/<fighterId>/lod1.glb   gameplay (required)
+  public/models/<fighterId>/lod2.glb   low
+  public/models/<fighterId>/manifest.json
+
+Meshy export:
+  - GLB
+  - Y-up, origin at feet
+  - human scale (~1.6–1.9 m)
+  - optional clips named Idle Walk Run Dash Jump Fall LightAttack Skill1 Hit Block Ultimate
+  - then set manifest.source to "meshy" and tweak scale / yOffset
+
+Do not overwrite with unlicensed scraped Tensura models.

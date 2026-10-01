@@ -1,0 +1,443 @@
+import { AttackKind, type AttackData } from '../combat/Attack.ts'
+import { FighterId } from '../types/game.ts'
+
+export interface FighterKit {
+  lights: readonly [AttackData, AttackData, AttackData]
+  medium: AttackData
+  heavy: AttackData
+  airLight: AttackData
+  airHeavy: AttackData
+  downLight: AttackData
+  skills: readonly [AttackData, AttackData, AttackData, AttackData]
+  ultimate: AttackData
+  skillCooldownMs: readonly [number, number, number, number]
+}
+
+function shot(
+  id: string,
+  name: string,
+  damage: number,
+  extra: Partial<AttackData> = {},
+): AttackData {
+  return {
+    id,
+    name,
+    kind: extra.kind ?? AttackKind.PROJECTILE,
+    damage,
+    knockback: extra.knockback ?? 180,
+    knockbackY: extra.knockbackY ?? -40,
+    stun: extra.stun ?? 0,
+    hitstun: extra.hitstun ?? 14,
+    energyGain: extra.energyGain ?? 0,
+    energyCost: extra.energyCost ?? 20,
+    startup: extra.startup ?? 10,
+    active: extra.active ?? 4,
+    recovery: extra.recovery ?? 16,
+    hitWidth: extra.hitWidth ?? 48,
+    hitHeight: extra.hitHeight ?? 36,
+    hitOffsetX: extra.hitOffsetX ?? 40,
+    hitOffsetY: extra.hitOffsetY ?? -10,
+    projectileSpeed: extra.projectileSpeed ?? 680,
+    projectileLife: extra.projectileLife ?? 0,
+    reachesArenaEdge: extra.reachesArenaEdge ?? ((extra.kind ?? AttackKind.PROJECTILE) === AttackKind.PROJECTILE
+      || extra.kind === AttackKind.BEAM),
+    ...extra,
+  }
+}
+
+function slashWave(id: string, name: string, damage: number, extra: Partial<AttackData> = {}): AttackData {
+  return shot(id, name, damage, {
+    rangedShape: 'slashProjectile',
+    reachesArenaEdge: true,
+    hitWidth: 54,
+    hitHeight: 26,
+    projectileSpeed: 900,
+    vfx: extra.vfx ?? 'trail',
+    startup: extra.startup ?? 8,
+    recovery: extra.recovery ?? 14,
+    ...extra,
+  })
+}
+
+function energyWave(id: string, name: string, damage: number, extra: Partial<AttackData> = {}): AttackData {
+  return shot(id, name, damage, {
+    kind: AttackKind.BEAM,
+    rangedShape: 'wave',
+    reachesArenaEdge: true,
+    continuesThroughTarget: true,
+    piercing: extra.piercing ?? 2,
+    beamWidth: extra.beamWidth ?? 58,
+    projectileSpeed: extra.projectileSpeed ?? 3400,
+    hitHeight: extra.hitHeight ?? 40,
+    ...extra,
+  })
+}
+
+function fromBase(base: FighterKit, tag: string, scale: number, skills: readonly AttackData[], ultimate: AttackData): FighterKit {
+  const mapAtk = (attack: AttackData): AttackData => ({
+    ...attack,
+    id: `${tag}-${attack.id}`,
+    damage: Math.max(1, Math.round(attack.damage * scale)),
+  })
+  const s0 = skills[0] ?? base.skills[0]
+  const s1 = skills[1] ?? base.skills[1]
+  const s2 = skills[2] ?? base.skills[2]
+  const s3 = skills[3] ?? base.skills[3]
+  return {
+    lights: [mapAtk(base.lights[0]), mapAtk(base.lights[1]), mapAtk(base.lights[2])],
+    medium: mapAtk(base.medium),
+    heavy: mapAtk(base.heavy),
+    airLight: mapAtk(base.airLight),
+    airHeavy: mapAtk(base.airHeavy),
+    downLight: mapAtk(base.downLight),
+    skills: [s0, s1, s2, s3],
+    ultimate,
+    skillCooldownMs: [1600, 2600, 4200, 8000],
+  }
+}
+
+function melee(
+  id: string,
+  name: string,
+  damage: number,
+  startup: number,
+  active: number,
+  recovery: number,
+  knockback: number,
+  extra: Partial<AttackData> = {},
+): AttackData {
+  return {
+    id,
+    name,
+    kind: AttackKind.MELEE,
+    damage,
+    knockback,
+    knockbackY: extra.knockbackY ?? -40,
+    stun: extra.stun ?? 0,
+    hitstun: extra.hitstun ?? active + 8,
+    energyGain: extra.energyGain ?? 4,
+    energyCost: extra.energyCost ?? 0,
+    startup,
+    active,
+    recovery,
+    hitWidth: extra.hitWidth ?? 90,
+    hitHeight: extra.hitHeight ?? 70,
+    hitOffsetX: extra.hitOffsetX ?? 30,
+    hitOffsetY: extra.hitOffsetY ?? -20,
+    ...extra,
+  }
+}
+
+export const KITS: Record<'rimuru' | 'milim', FighterKit> = {
+  rimuru: {
+    lights: [
+      melee('r-l1', 'Water Jab', 28, 4, 4, 8, 140, { energyGain: 5 }),
+      melee('r-l2', 'Water Kick', 34, 5, 4, 10, 180, { hitOffsetX: 36, energyGain: 5 }),
+      melee('r-l3', 'Water Finisher', 48, 6, 5, 16, 280, { hitWidth: 110, knockbackY: -180, energyGain: 8, launcher: true }),
+    ],
+    medium: melee('r-m', 'Water Palm', 52, 8, 5, 14, 240, { hitWidth: 100, energyGain: 7 }),
+    heavy: melee('r-h', 'Heavy Blade', 78, 12, 6, 22, 420, {
+      hitWidth: 130,
+      hitOffsetX: 40,
+      knockbackY: -220,
+      energyGain: 10,
+      armor: true,
+      knockdown: true,
+    }),
+    airLight: melee('r-al', 'Air Slash', 30, 5, 4, 10, 120, { hitOffsetY: 10 }),
+    airHeavy: melee('r-ah', 'Air Dive', 64, 8, 6, 14, 200, { knockbackY: 80, hitOffsetY: 20 }),
+    downLight: melee('r-dl', 'Water Launcher', 44, 7, 5, 14, 160, { knockbackY: -420, launcher: true, hitOffsetY: 10 }),
+    skills: [
+      {
+        id: 'water-blade',
+        name: 'Water Blade',
+        kind: AttackKind.PROJECTILE,
+        damage: 70,
+        knockback: 260,
+        knockbackY: -40,
+        stun: 0,
+        hitstun: 14,
+        energyGain: 0,
+        energyCost: 12,
+        startup: 8,
+        active: 6,
+        recovery: 14,
+        hitWidth: 48,
+        hitHeight: 22,
+        hitOffsetX: 50,
+        hitOffsetY: -10,
+        projectileSpeed: 920,
+        projectileLife: 0,
+        reachesArenaEdge: true,
+        rangedShape: 'slashProjectile',
+        castPointX: 58,
+        castPointY: -16,
+        piercing: 1,
+        vfx: 'water_flash',
+      },
+      {
+        id: 'black-lightning',
+        name: 'Black Lightning',
+        kind: AttackKind.BEAM,
+        damage: 85,
+        knockback: 200,
+        knockbackY: -60,
+        stun: 0,
+        hitstun: 16,
+        energyGain: 0,
+        energyCost: 22,
+        startup: 10,
+        active: 4,
+        recovery: 18,
+        hitWidth: 36,
+        hitHeight: 28,
+        hitOffsetX: 40,
+        hitOffsetY: -10,
+        projectileSpeed: 3400,
+        projectileLife: 0,
+        piercing: 2,
+        continuesThroughTarget: true,
+        reachesArenaEdge: true,
+        rangedShape: 'beam',
+        instant: false,
+        beamWidth: 36,
+        castPointX: 48,
+        castPointY: -22,
+        vfx: 'energy_beam',
+      },
+      melee('predator', 'Predator', 120, 10, 6, 20, 160, {
+        energyCost: 18,
+        stun: 18,
+        grantEnergyOnHit: 24,
+        hitWidth: 80,
+        hitOffsetX: 20,
+        absorbOnHit: true,
+      }),
+      {
+        id: 'megiddo',
+        name: 'Megiddo',
+        kind: AttackKind.AREA,
+        damage: 180,
+        knockback: 520,
+        knockbackY: -80,
+        stun: 10,
+        hitstun: 24,
+        energyGain: 0,
+        energyCost: 40,
+        startup: 28,
+        active: 10,
+        recovery: 26,
+        hitWidth: 820,
+        hitHeight: 70,
+        hitOffsetX: 40,
+        hitOffsetY: -10,
+        reachesArenaEdge: true,
+        vfx: 'magic_explosion',
+      },
+    ],
+    ultimate: {
+      id: 'rimuru-ult',
+      name: 'Beelzebuth',
+      kind: AttackKind.ULTIMATE,
+      damage: 320,
+      knockback: 640,
+      knockbackY: -280,
+      stun: 20,
+      hitstun: 36,
+      energyGain: 0,
+      energyCost: 0,
+      startup: 20,
+      active: 12,
+      recovery: 30,
+      hitWidth: 420,
+      hitHeight: 220,
+      hitOffsetX: 10,
+      hitOffsetY: -80,
+      unguardable: true,
+      vfx: 'impact_ultimate',
+    },
+    skillCooldownMs: [1800, 3200, 5000, 8000],
+  },
+  milim: {
+    lights: [
+      melee('m-l1', 'Dragon Punch', 32, 4, 4, 8, 160, { energyGain: 4 }),
+      melee('m-l2', 'Dragon Hook', 40, 5, 4, 10, 200, { energyGain: 5 }),
+      melee('m-l3', 'Dragon Rush', 56, 6, 5, 14, 320, { knockbackY: -200, energyGain: 7, launcher: true }),
+    ],
+    medium: melee('m-m', 'Dragon Elbow', 60, 7, 5, 12, 280, { energyGain: 6 }),
+    heavy: melee('m-h', 'Heavy Smash', 92, 11, 6, 20, 480, {
+      hitWidth: 140,
+      knockbackY: -260,
+      energyGain: 9,
+      armor: true,
+      knockdown: true,
+    }),
+    airLight: melee('m-al', 'Air Claw', 36, 4, 4, 10, 140, { hitOffsetY: 8 }),
+    airHeavy: melee('m-ah', 'Air Stomp', 72, 8, 6, 14, 220, { knockbackY: 90, hitOffsetY: 24 }),
+    downLight: melee('m-dl', 'Dragon Upper', 50, 6, 5, 12, 180, { knockbackY: -480, launcher: true }),
+    skills: [
+      shot('dragon-fist', 'Dragon Fist', 88, {
+        energyCost: 14,
+        rangedShape: 'energyBall',
+        reachesArenaEdge: true,
+        projectileSpeed: 860,
+        hitWidth: 52,
+        hitHeight: 48,
+      }),
+      {
+        id: 'magic-missile',
+        name: 'Magic Missile',
+        kind: AttackKind.PROJECTILE,
+        damage: 70,
+        knockback: 180,
+        knockbackY: -40,
+        stun: 0,
+        hitstun: 14,
+        energyGain: 0,
+        energyCost: 16,
+        startup: 8,
+        active: 4,
+        recovery: 14,
+        hitWidth: 32,
+        hitHeight: 32,
+        hitOffsetX: 36,
+        hitOffsetY: -8,
+        projectileSpeed: 780,
+        tracking: 180,
+        homingStrength: 180,
+        maxTurnRate: 9,
+        reachesArenaEdge: true,
+        rangedShape: 'homingProjectile',
+        projectileLife: 0,
+      },
+      {
+        id: 'milim-kick',
+        name: 'Milim Kick',
+        kind: AttackKind.DASH,
+        damage: 110,
+        knockback: 620,
+        knockbackY: -120,
+        stun: 4,
+        hitstun: 18,
+        energyGain: 6,
+        energyCost: 20,
+        startup: 6,
+        active: 10,
+        recovery: 16,
+        hitWidth: 110,
+        hitHeight: 80,
+        hitOffsetX: 20,
+        hitOffsetY: -10,
+      },
+      {
+        id: 'dragon-nova',
+        name: 'Dragon Nova',
+        kind: AttackKind.AREA,
+        damage: 210,
+        knockback: 400,
+        knockbackY: -200,
+        stun: 12,
+        hitstun: 28,
+        energyGain: 0,
+        energyCost: 42,
+        startup: 34,
+        active: 12,
+        recovery: 28,
+        hitWidth: 360,
+        hitHeight: 260,
+        hitOffsetX: -80,
+        hitOffsetY: -140,
+      },
+    ],
+    ultimate: {
+      id: 'milim-ult',
+      name: 'Drago Buster',
+      kind: AttackKind.ULTIMATE,
+      damage: 360,
+      knockback: 700,
+      knockbackY: -320,
+      stun: 24,
+      hitstun: 40,
+      energyGain: 0,
+      energyCost: 0,
+      startup: 18,
+      active: 14,
+      recovery: 32,
+      hitWidth: 480,
+      hitHeight: 280,
+      hitOffsetX: 0,
+      hitOffsetY: -120,
+      unguardable: true,
+    },
+    skillCooldownMs: [1600, 2800, 4200, 9000],
+  },
+}
+
+export const ALL_KITS: Record<typeof FighterId[keyof typeof FighterId], FighterKit> = {
+  rimuru: KITS.rimuru,
+  milim: KITS.milim,
+  diablo: fromBase(KITS.rimuru, 'diablo', 0.96, [
+    shot('end-of-world', 'End of World', 90, { energyCost: 22, kind: AttackKind.PROJECTILE, tracking: 0.08 }),
+    melee('tempter', 'Tempter Counter', 100, 6, 8, 18, 200, { energyCost: 16, kind: AttackKind.COUNTER }),
+    energyWave('dark-nova', 'Dark Nova', 140, { energyCost: 32, beamWidth: 72, hitHeight: 56 }),
+    melee('demon-lord', 'Demon Form', 0, 4, 2, 10, 0, { kind: AttackKind.TRANSFORMATION, energyCost: 20, vfx: 'energy_burst' }),
+  ], shot('diablo-ult', 'Azazel', 300, { kind: AttackKind.ULTIMATE, unguardable: true, hitWidth: 400, energyCost: 0 })),
+  benimaru: fromBase(KITS.milim, 'benimaru', 1.02, [
+    slashWave('flame-slash', 'Flame Slash', 80, { energyCost: 12, projectileSpeed: 880 }),
+    shot('hellflare', 'Hellflare', 95, { energyCost: 24, projectileSpeed: 800, rangedShape: 'energyBall' }),
+    melee('ogre-rush', 'Ogre Rush', 110, 8, 8, 16, 360, { energyCost: 20, kind: AttackKind.MOBILITY }),
+    energyWave('black-flame', 'Black Flame', 160, { energyCost: 36, beamWidth: 64, hitHeight: 48 }),
+  ], melee('benimaru-ult', 'Prominence', 340, 16, 12, 28, 680, { kind: AttackKind.ULTIMATE, unguardable: true, hitWidth: 420 })),
+  shion: fromBase(KITS.milim, 'shion', 1.1, [
+    slashWave('cleaver', 'Chef Cleaver', 95, { energyCost: 14, projectileSpeed: 820, startup: 10, recovery: 18 }),
+    melee('cook', 'Cook Throw', 130, 12, 6, 22, 200, { energyCost: 22, kind: AttackKind.MELEE, stun: 20 }),
+    melee('berserk', 'Berserk', 0, 4, 2, 8, 0, { kind: AttackKind.BUFF, energyCost: 18, applyBuff: 'attack' }),
+    melee('ground-break', 'Ground Break', 150, 16, 8, 24, 500, { kind: AttackKind.AREA, energyCost: 34, hitWidth: 360 }),
+  ], melee('shion-ult', 'Tempest Fury', 380, 18, 12, 30, 720, { kind: AttackKind.ULTIMATE, unguardable: true, hitWidth: 300 })),
+  veldora: fromBase(KITS.milim, 'veldora', 1.14, [
+    shot('storm', 'Storm Breath', 100, { energyCost: 20, piercing: 2, hitWidth: 50, rangedShape: 'energyBall', continuesThroughTarget: true }),
+    melee('dragon-tail', 'Dragon Tail', 120, 12, 8, 20, 500, { energyCost: 18, hitWidth: 200 }),
+    shot('thunder', 'Death-Heralding Wind', 130, {
+      kind: AttackKind.BEAM, energyCost: 30, projectileSpeed: 3600, piercing: 3,
+      continuesThroughTarget: true, instant: true, beamWidth: 52, reachesArenaEdge: true,
+    }),
+    melee('roar', 'Storm Roar', 170, 20, 12, 26, 200, { kind: AttackKind.AREA, energyCost: 40, hitWidth: 700, reachesArenaEdge: true }),
+  ], melee('veldora-ult', 'Storm Dragon', 400, 22, 16, 32, 800, { kind: AttackKind.ULTIMATE, unguardable: true, hitWidth: 560 })),
+  hinata: fromBase(KITS.rimuru, 'hinata', 0.98, [
+    slashWave('holy-cut', 'Holy Cut', 72, { energyCost: 10, projectileSpeed: 940 }),
+    melee('melt-slash', 'Melt Slash', 105, 8, 6, 16, 180, { energyCost: 18, kind: AttackKind.COUNTER, vfx: 'trail' }),
+    shot('disintegration', 'Disintegration', 150, {
+      kind: AttackKind.BEAM, energyCost: 34, projectileSpeed: 4800, vfx: 'energy_beam',
+      instant: true, beamWidth: 40, reachesArenaEdge: true, piercing: 1,
+    }),
+    melee('faith', 'Faith Guard', 0, 4, 8, 12, 0, { kind: AttackKind.DEFENSIVE, energyCost: 16 }),
+  ], melee('hinata-ult', 'Chrono-Saltation', 310, 16, 10, 26, 560, { kind: AttackKind.ULTIMATE, unguardable: true, hitWidth: 380 })),
+  guy: fromBase(KITS.milim, 'guy', 1.08, [
+    slashWave('pride-cut', 'Pride Cut', 88, { energyCost: 12, projectileSpeed: 900 }),
+    shot('crimson', 'Crimson Magic', 110, { energyCost: 24, kind: AttackKind.PROJECTILE, rangedShape: 'energyBall' }),
+    melee('dominate', 'Dominate', 140, 10, 8, 20, 240, { energyCost: 26, stun: 16 }),
+    melee('lord', 'True Dragon Lord', 0, 6, 4, 10, 0, { kind: AttackKind.TRANSFORMATION, energyCost: 22, vfx: 'energy_burst' }),
+  ], melee('guy-ult', 'World Ruin', 390, 20, 14, 30, 760, { kind: AttackKind.ULTIMATE, unguardable: true, hitWidth: 500 })),
+  shuna: fromBase(KITS.rimuru, 'shuna', 0.9, [
+    shot('holy-flame', 'Holy Flame', 70, { energyCost: 14, rangedShape: 'energyBall' }),
+    melee('barrier', 'Barrier', 0, 4, 10, 12, 0, { kind: AttackKind.DEFENSIVE, energyCost: 16 }),
+    melee('bless', 'Blessing', 0, 6, 4, 10, 0, { kind: AttackKind.BUFF, energyCost: 18, applyBuff: 'defense' }),
+    shot('purify', 'Purify', 120, { kind: AttackKind.PROJECTILE, energyCost: 28, rangedShape: 'energyBall' }),
+  ], shot('shuna-ult', 'Temple Light', 260, { kind: AttackKind.ULTIMATE, unguardable: true, hitWidth: 420, energyCost: 0 })),
+  souei: fromBase(KITS.rimuru, 'souei', 0.94, [
+    slashWave('shadow-stab', 'Shadow Blade', 78, { energyCost: 10, projectileSpeed: 960 }),
+    melee('clone', 'Clone Dash', 90, 6, 8, 12, 160, { kind: AttackKind.MOBILITY, energyCost: 16, vfx: 'afterimage' }),
+    shot('kunai', 'Shadow Kunai', 85, { energyCost: 18, projectileSpeed: 860, rangedShape: 'piercingProjectile' }),
+    melee('assassinate', 'Assassinate', 160, 8, 4, 22, 120, { energyCost: 30, unguardable: true }),
+  ], melee('souei-ult', 'Death Shadow', 300, 14, 8, 22, 480, { kind: AttackKind.ULTIMATE, unguardable: true, hitWidth: 260 })),
+  hakurou: fromBase(KITS.rimuru, 'hakurou', 1.0, [
+    slashWave('iai', 'Iai', 82, { energyCost: 12, projectileSpeed: 1100, startup: 4, recovery: 16 }),
+    melee('form-two', 'Second Form', 96, 8, 6, 14, 280, { energyCost: 16, vfx: 'trail' }),
+    melee('parry', 'Sword Parry', 70, 5, 8, 12, 100, { kind: AttackKind.COUNTER, energyCost: 14 }),
+    melee('secret', 'Secret Art', 150, 12, 6, 20, 360, { energyCost: 32, vfx: 'trail' }),
+  ], melee('hakurou-ult', 'Moon Fang', 330, 16, 10, 24, 600, { kind: AttackKind.ULTIMATE, unguardable: true, hitWidth: 340, vfx: 'impact_ultimate' })),
+}
+
+export function kitFor(id: typeof FighterId[keyof typeof FighterId]): FighterKit {
+  return ALL_KITS[id]
+}

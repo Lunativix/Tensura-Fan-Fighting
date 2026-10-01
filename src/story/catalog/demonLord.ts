@@ -1,0 +1,87 @@
+import { FighterId } from '../../types/game.ts'
+import { StorySource, type StoryMissionDef } from '../types.ts'
+
+/** LN vol. 5. Harvest Festival, sommeil, revival, puis invocation : Noir reçoit le nom Diablo. */
+export const DEMON_LORD_MISSION: StoryMissionDef = {
+  id: 'harvest_festival',
+  title: 'Harvest Festival',
+  arc: 'demon_lord',
+    chronology: 10,
+  location: 'Tempest',
+  stageId: 'tempest_festival',
+  summary: 'True Demon Lord. Les nommés évoluent. Shion revient. Rimuru nomme le primordial Noir : Diablo.',
+  source: StorySource.LN,
+  playable: true,
+  playableCharacter: FighterId.rimuru,
+  objectives: ['Achever le Harvest Festival', 'Nommer Diablo'],
+  rewards: { xp: 160, coins: 100 },
+  unlocks: {
+    characters: ['diablo'],
+    stages: ['tempest_festival'],
+    archives: ['harvest-festival', 'demon-lord-rimuru', 'diablo'],
+  },
+  beats: [
+    { type: 'title', text: 'HARVEST FESTIVAL', sub: 'Les âmes. Le sommeil. L\'évolution.', ms: 2200 },
+    { type: 'narration', text: 'Rimuru se réveille. Autour de lui, Tempest respire à nouveau.' },
+    {
+      type: 'dialogue',
+      speaker: 'Great Sage',
+      speakerId: 'rimuru',
+      text: 'Réponse. Harvest Festival en cours. Évolution : True Demon Lord. Les individus nommés évoluent avec toi. Corps : endormi.',
+      emotion: 'serious',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Shuna',
+      speakerId: 'shuna',
+      text: 'Rimuru... Shion respire. Ils sont revenus. Tous ceux qu\'on a pu... Tempest tient encore.',
+      emotion: 'sad',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Shion',
+      speakerId: 'shion',
+      text: 'Je... je suis là. Désolée. Je n\'ai pas tenu. Je tiendrai la prochaine fois.',
+      emotion: 'sad',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Rimuru',
+      speakerId: 'rimuru',
+      text: 'Ne t\'excuse pas. Je n\'étais pas là. Ça n\'arrivera plus. S\'il faut un Demon Lord pour cette ville, j\'en suis un.',
+      emotion: 'serious',
+    },
+    { type: 'presence', who: 'diablo' },
+    {
+      type: 'dialogue',
+      speaker: 'Noir',
+      speakerId: 'diablo',
+      text: 'Tu as appelé des démons. Je suis venu. Le noir. Je n\'ai pas de nom que je veuille garder. Donne-m\'en un. Je servirai.',
+      emotion: 'serious',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Rimuru',
+      speakerId: 'rimuru',
+      text: 'Diablo. Ça te va ? Alors Diablo. Tempest n\'est pas un jouet. Tu es des nôtres.',
+      emotion: 'normal',
+    },
+    {
+      type: 'dialogue',
+      speaker: 'Diablo',
+      speakerId: 'diablo',
+      text: 'Diablo... Rimuru-sama. Rien d\'autre. Pour toujours.',
+      emotion: 'happy',
+    },
+    { type: 'transform', who: FighterId.diablo, appearanceId: 'diablo-named' },
+    {
+      type: 'dialogue',
+      speaker: 'Great Sage',
+      speakerId: 'rimuru',
+      text: 'Réponse. Primordial Noir. Nom : Diablo. Fidélité : extrême. Puissance : hors échelle villageoise.',
+      emotion: 'serious',
+    },
+    { type: 'unlock', unlocks: { characters: ['diablo'], archives: ['harvest-festival', 'diablo', 'demon-lord-rimuru'] } },
+    { type: 'complete' },
+  ],
+}

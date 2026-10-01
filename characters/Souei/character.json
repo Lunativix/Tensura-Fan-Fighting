@@ -1,0 +1,111 @@
+{
+  "name": "Souei",
+  "displayName": "Souei",
+  "gameId": "souei",
+  "pivot": { "x": 0.5, "y": 1.0 },
+  "targetHeightPx": 168,
+  "weapon": "sabre court ninja + fils d'acier",
+  "fightingStyle": "Assassin shinobi : frappes eclairs, fils d'acier collants, clones d'ombre",
+  "sourceCellSize": { "note": "cells = sheet width/cols x sheet height/rows; frames are auto-cropped and background-punched at load time" },
+  "animations": {
+    "idle": {
+      "sheet": "spritesheets/Souei_idle.png",
+      "gameFolder": "public/sprites/souei/idle",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": true
+    },
+    "walk": {
+      "sheet": "spritesheets/Souei_walk.png",
+      "gameFolder": "public/sprites/souei/walk",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": true
+    },
+    "run": {
+      "sheet": "spritesheets/Souei_run.png",
+      "gameFolder": "public/sprites/souei/run",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": true
+    },
+    "jump": {
+      "sheet": "spritesheets/Souei_jump.png",
+      "gameFolder": "public/sprites/souei/jump (frames 1-4) + public/sprites/souei/fall (frames 5-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "light_attack": {
+      "sheet": "spritesheets/Souei_light_attack.png",
+      "gameFolder": "public/sprites/souei/attack",
+      "note": "Combo sabre court : degainage eclair + taille inversee tournoyante",
+      "frames": 8, "grid": "4x2", "fps": 14, "loop": false,
+      "combat": { "damage": 7, "knockback": 130, "activeFrames": [3, 6], "cancelWindow": [6, 8], "invincibility": null }
+    },
+    "heavy_attack": {
+      "sheet": "spritesheets/Souei_heavy_attack.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/heavy_attack) : ruee basse d'assassin + taille croisee en X",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 14, "knockback": 280, "activeFrames": [4, 6], "cancelWindow": null, "invincibility": null }
+    },
+    "skill1_sticky_steel_thread": {
+      "sheet": "spritesheets/Souei_skill1.png",
+      "gameFolder": "public/sprites/souei/skill",
+      "note": "Fils d'acier collants : toile de fils argentes projetee vers l'avant",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": false,
+      "combat": { "damage": 8, "knockback": 120, "activeFrames": [4, 6], "projectile": true, "immobilize": true, "cancelWindow": [7, 8], "invincibility": null }
+    },
+    "skill2_shadow_clone_assault": {
+      "sheet": "spritesheets/Souei_skill2.png",
+      "gameFolder": "public/sprites/souei/ultimate",
+      "note": "Assaut des clones d'ombre : multiplication + frappes simultanees multi-hits",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 22, "knockback": 300, "activeFrames": [4, 6], "cancelWindow": null, "invincibility": [2, 4] }
+    },
+    "hurt": {
+      "sheet": "spritesheets/Souei_hurt.png",
+      "gameFolder": "public/sprites/souei/hit",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "guard": {
+      "sheet": "spritesheets/Souei_guard.png",
+      "gameFolder": "public/sprites/souei/block",
+      "note": "Garde lame verticale a deux mains, onde cyan sur la lame",
+      "frames": 6, "grid": "3x2", "fps": 10, "loop": true
+    },
+    "knockback": {
+      "sheet": "spritesheets/Souei_knockback.png",
+      "gameFolder": "public/sprites/souei/knockdown (frames 1-6) + public/sprites/souei/getup (frames 7-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "ko": {
+      "sheet": "spritesheets/Souei_ko.png",
+      "gameFolder": "public/sprites/souei/dead",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "dash": {
+      "sheet": "spritesheets/Souei_dash.png",
+      "gameFolder": "public/sprites/souei/dash",
+      "note": "Pas de l'ombre : ruee floue avec images remanentes et brume sombre",
+      "frames": 6, "grid": "3x2", "fps": 14, "loop": false
+    },
+    "victory": {
+      "sheet": "spritesheets/Souei_victory.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/victory) : nettoie la lame, rengaine, bras croises impassible",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "switch_in": {
+      "sheet": "spritesheets/Souei_switch_in.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_in) : materialisation depuis la brume d'ombre, pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "switch_out": {
+      "sheet": "spritesheets/Souei_switch_out.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_out) : dissolution en brume, pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    }
+  },
+  "hurtbox": { "width": 42, "height": 118, "offsetY": 0 },
+  "notes": [
+    "Toutes les frames sont detourees automatiquement au chargement (fond blanc -> transparent, crop alpha).",
+    "L'echelle est normalisee a l'ecran vers targetHeightPx par FighterView2D.",
+    "Les valeurs combat (damage/knockback/frames actives) sont indicatives et a synchroniser avec les stats du jeu."
+  ]
+}

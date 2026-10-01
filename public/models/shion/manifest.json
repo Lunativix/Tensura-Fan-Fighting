@@ -1,0 +1,37 @@
+{
+  "fighterId": "shion",
+  "source": "placeholder",
+  "format": "glb",
+  "lod": {
+    "lod1": "lod1.glb",
+    "lod2": "lod2.glb",
+    "lod0": "lod0.glb"
+  },
+  "scale": 78,
+  "yOffset": -66,
+  "facing": 1,
+  "skeleton": "Root",
+  "materials": [
+    "Body"
+  ],
+  "animations": {
+    "idle": "Idle",
+    "walk": "Walk",
+    "run": "Run",
+    "dash": "Dash",
+    "jump": "Jump",
+    "fall": "Fall",
+    "attack": "LightAttack",
+    "skill": "Skill1",
+    "hit": "Hit",
+    "block": "Block",
+    "knockdown": "Knockdown",
+    "transform": "Transform",
+    "ultimate": "Ultimate",
+    "victory": "Victory",
+    "defeat": "Defeat"
+  },
+  "meshy": {
+    "dropIn": "Replace lod0.glb / lod1.glb with a Meshy export (Y-up, meters, origin at feet). Keep this manifest."
+  }
+}

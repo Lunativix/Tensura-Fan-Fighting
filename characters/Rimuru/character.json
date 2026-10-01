@@ -1,0 +1,105 @@
+{
+  "name": "Rimuru",
+  "displayName": "Rimuru Tempest",
+  "gameId": "rimuru",
+  "pivot": { "x": 0.5, "y": 1.0 },
+  "targetHeightPx": 168,
+  "sourceCellSize": { "note": "cells = sheet width/cols x sheet height/rows; frames are auto-cropped and background-punched at load time" },
+  "animations": {
+    "idle": {
+      "sheet": "spritesheets/Rimuru_idle.png",
+      "gameFolder": "public/sprites/rimuru/idle",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": true
+    },
+    "walk": {
+      "sheet": "spritesheets/Rimuru_walk.png",
+      "gameFolder": "public/sprites/rimuru/walk",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": true
+    },
+    "run": {
+      "sheet": "spritesheets/Rimuru_run.png",
+      "gameFolder": "public/sprites/rimuru/run",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": true
+    },
+    "jump": {
+      "sheet": "spritesheets/Rimuru_jump.png",
+      "gameFolder": "public/sprites/rimuru/jump (frames 1-4) + public/sprites/rimuru/fall (frames 5-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "light_attack": {
+      "sheet": null,
+      "note": "12 frames fournies par le joueur (image par image)",
+      "gameFolder": "public/sprites/rimuru/attack",
+      "frames": 12, "fps": 12, "loop": false,
+      "combat": { "damage": 6, "knockback": 120, "activeFrames": [4, 8], "cancelWindow": [9, 12], "invincibility": null }
+    },
+    "heavy_attack": {
+      "sheet": "spritesheets/Rimuru_heavy_attack.png",
+      "gameFolder": null,
+      "note": "en bibliothèque (animations/heavy_attack), sera branché quand le jeu distinguera light/heavy par clip",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": false,
+      "combat": { "damage": 12, "knockback": 260, "activeFrames": [3, 5], "cancelWindow": null, "invincibility": null }
+    },
+    "skill1_water_blade": {
+      "sheet": "spritesheets/Rimuru_skill1.png",
+      "gameFolder": "public/sprites/rimuru/skill",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": false,
+      "combat": { "damage": 10, "knockback": 180, "activeFrames": [3, 6], "projectile": true, "cancelWindow": [7, 8], "invincibility": null }
+    },
+    "skill2_predator_aura": {
+      "sheet": "spritesheets/Rimuru_skill2.png",
+      "gameFolder": "public/sprites/rimuru/ultimate",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false,
+      "combat": { "damage": 22, "knockback": 320, "activeFrames": [3, 6], "cancelWindow": null, "invincibility": [1, 4] }
+    },
+    "hurt": {
+      "sheet": "spritesheets/Rimuru_hurt.png",
+      "gameFolder": "public/sprites/rimuru/hit",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "guard": {
+      "sheet": "spritesheets/Rimuru_guard.png",
+      "gameFolder": "public/sprites/rimuru/block",
+      "frames": 6, "grid": "3x2", "fps": 10, "loop": true
+    },
+    "knockback": {
+      "sheet": "spritesheets/Rimuru_knockback.png",
+      "gameFolder": "public/sprites/rimuru/knockdown (frames 1-6) + public/sprites/rimuru/getup (frames 7-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "ko": {
+      "sheet": "spritesheets/Rimuru_ko.png",
+      "gameFolder": "public/sprites/rimuru/dead",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "dash": {
+      "sheet": "spritesheets/Rimuru_dash.png",
+      "gameFolder": "public/sprites/rimuru/dash",
+      "frames": 6, "grid": "3x2", "fps": 14, "loop": false
+    },
+    "victory": {
+      "sheet": "spritesheets/Rimuru_victory.png",
+      "gameFolder": null,
+      "note": "en bibliothèque (animations/victory), pour l'écran de victoire à venir",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "switch_in": {
+      "sheet": "spritesheets/Rimuru_switch_in.png",
+      "gameFolder": null,
+      "note": "en bibliothèque (animations/switch_in), pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "switch_out": {
+      "sheet": "spritesheets/Rimuru_switch_out.png",
+      "gameFolder": null,
+      "note": "en bibliothèque (animations/switch_out), pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    }
+  },
+  "hurtbox": { "width": 44, "height": 120, "offsetY": 0 },
+  "notes": [
+    "Toutes les frames sont détourées automatiquement au chargement (fond blanc -> transparent, crop alpha).",
+    "L'échelle est normalisée à l'écran vers targetHeightPx par FighterView2D.",
+    "Les valeurs combat (damage/knockback/frames actives) sont indicatives et à synchroniser avec src/data/fighters.ts."
+  ]
+}

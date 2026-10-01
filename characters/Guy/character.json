@@ -1,0 +1,111 @@
+{
+  "name": "Guy",
+  "displayName": "Guy Crimson",
+  "gameId": "guy",
+  "pivot": { "x": 0.5, "y": 1.0 },
+  "targetHeightPx": 168,
+  "weapon": "mains nues + magie carmin (feu et glace)",
+  "fightingStyle": "Seigneur demon primordial : frappes a mains nues elegantes, flammes carmin et glace, arrogance royale",
+  "sourceCellSize": { "note": "cells = sheet width/cols x sheet height/rows; frames are auto-cropped and background-punched at load time" },
+  "animations": {
+    "idle": {
+      "sheet": "spritesheets/Guy_idle.png",
+      "gameFolder": "public/sprites/guy/idle",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": true
+    },
+    "walk": {
+      "sheet": "spritesheets/Guy_walk.png",
+      "gameFolder": "public/sprites/guy/walk",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": true
+    },
+    "run": {
+      "sheet": "spritesheets/Guy_run.png",
+      "gameFolder": "public/sprites/guy/run",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": true
+    },
+    "jump": {
+      "sheet": "spritesheets/Guy_jump.png",
+      "gameFolder": "public/sprites/guy/jump (frames 1-4) + public/sprites/guy/fall (frames 5-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "light_attack": {
+      "sheet": "spritesheets/Guy_light_attack.png",
+      "gameFolder": "public/sprites/guy/attack",
+      "note": "Combo mains nues : paume eclair + revers tournoyant + genou monte, trainees carmin",
+      "frames": 8, "grid": "4x2", "fps": 14, "loop": false,
+      "combat": { "damage": 9, "knockback": 155, "activeFrames": [2, 7], "cancelWindow": [7, 8], "invincibility": null }
+    },
+    "heavy_attack": {
+      "sheet": "spritesheets/Guy_heavy_attack.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/heavy_attack) : paume chargee feu carmin + eclats de glace, explosion frontale",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 17, "knockback": 330, "activeFrames": [5, 6], "cancelWindow": null, "invincibility": null }
+    },
+    "skill1_crimson_flame": {
+      "sheet": "spritesheets/Guy_skill1.png",
+      "gameFolder": "public/sprites/guy/skill",
+      "note": "Flamme carmin : sphere de feu rouge sombre projetee vers l'avant avec trainee d'embres",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": false,
+      "combat": { "damage": 11, "knockback": 200, "activeFrames": [4, 6], "projectile": true, "cancelWindow": [8, 8], "invincibility": null }
+    },
+    "skill2_crimson_cataclysm": {
+      "sheet": "spritesheets/Guy_skill2.png",
+      "gameFolder": "public/sprites/guy/ultimate",
+      "note": "Cataclysme carmin : vague fusionnee feu carmin + glace, double element devastateur",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 26, "knockback": 360, "activeFrames": [5, 6], "cancelWindow": null, "invincibility": [2, 4] }
+    },
+    "hurt": {
+      "sheet": "spritesheets/Guy_hurt.png",
+      "gameFolder": "public/sprites/guy/hit",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "guard": {
+      "sheet": "spritesheets/Guy_guard.png",
+      "gameFolder": "public/sprites/guy/block",
+      "note": "Garde barriere hexagonale carmin conjuree d'une paume",
+      "frames": 6, "grid": "3x2", "fps": 10, "loop": true
+    },
+    "knockback": {
+      "sheet": "spritesheets/Guy_knockback.png",
+      "gameFolder": "public/sprites/guy/knockdown (frames 1-6) + public/sprites/guy/getup (frames 7-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "ko": {
+      "sheet": "spritesheets/Guy_ko.png",
+      "gameFolder": "public/sprites/guy/dead",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "dash": {
+      "sheet": "spritesheets/Guy_dash.png",
+      "gameFolder": "public/sprites/guy/dash",
+      "note": "Ruee fulgurante avec images remanentes et embres carmin",
+      "frames": 6, "grid": "3x2", "fps": 14, "loop": false
+    },
+    "victory": {
+      "sheet": "spritesheets/Guy_victory.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/victory) : rejette ses cheveux en arriere puis croise les bras, sourire royal",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "switch_in": {
+      "sheet": "spritesheets/Guy_switch_in.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_in) : materialisation depuis un tourbillon d'embres carmin, pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "switch_out": {
+      "sheet": "spritesheets/Guy_switch_out.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_out) : dissolution en embres carmin, pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    }
+  },
+  "hurtbox": { "width": 44, "height": 124, "offsetY": 0 },
+  "notes": [
+    "Toutes les frames sont detourees automatiquement au chargement (fond blanc -> transparent, crop alpha).",
+    "L'echelle est normalisee a l'ecran vers targetHeightPx par FighterView2D.",
+    "Les valeurs combat (damage/knockback/frames actives) sont indicatives et a synchroniser avec les stats du jeu."
+  ]
+}

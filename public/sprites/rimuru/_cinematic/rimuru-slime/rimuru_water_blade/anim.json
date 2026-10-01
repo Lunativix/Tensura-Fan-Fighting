@@ -1,0 +1,7 @@
+{
+  "fighterId": "rimuru",
+  "form": "rimuru-slime",
+  "animId": "rimuru_water_blade",
+  "status": "CINEMATIC ARCHIVE",
+  "note": "Not a combat clip. Indexer skips _cinematic. Used only if a cutscene needs slime Water Blade frames."
+}

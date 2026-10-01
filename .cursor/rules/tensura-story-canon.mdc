@@ -1,0 +1,94 @@
+---
+description: Canon LN du Story Mode Tensura — remplace toute implémentation contradictoire
+alwaysApply: true
+---
+
+# Corrections canoniques — Story Mode
+
+Ces règles remplacent toute version précédente du scénario.
+
+## Sources
+
+- **Light Novel** = référence narrative (chronologie, événements, noms, dialogues paraphrasés).
+- **Manga / anime** = maps, portraits, expressions, rythme, chorégraphie, VFX. Pas leurs répliques par-dessus le LN.
+- Pas de citation verbatim du roman. Paraphraser en conservant le sens et l’ordre.
+
+## Veldora / nom
+
+Ordre obligatoire :
+
+1. Veldora nomme **Rimuru**
+2. Rimuru propose **Tempest**
+3. Ensuite seulement, **Predator** analyse le sceau
+
+Ne jamais inverser.
+
+## Great Sage vs UI
+
+Great Sage parle comme dans le LN : `Réponse.` puis le fait. Pas un coach, pas une IA tutorielle.
+
+Les consignes joueur vont dans `{ type: 'hint' }`, jamais dans une réplique (sauf si le LN le dit vraiment).
+
+```
+// BAD
+Great Sage: « Recommandation : frappe physique. »
+
+// GOOD
+Great Sage: « Réponse. Forme de vie hostile détectée. »
+hint: « Frappe. »
+```
+
+Hints UI autorisés : `Garde-toi`, `Utilise Water Blade`, `Esquive`, `Déplace-toi`.
+
+## Dialogues — première personne
+
+Le nom du locuteur est le champ `speaker` (plaque UI). Ne jamais préfixer `Nom :` dans `text`.
+
+Quand un personnage parle : première personne (`je` / `me` / `nous`). Jamais de narration dans sa bouche (`Rimuru va…`, `Benimaru dégaine…`).
+
+Les actions hors réplique vont dans `{ type: 'narration', text: '…' }` (affichées entre crochets, sans plaque de nom).
+
+Great Sage reste `Réponse.` + le fait. Hints gameplay = `{ type: 'hint' }`.
+
+Exception volontaire : un personnage qui se nomme lui-même par vanity (Gabiru).
+
+## Rimuru / apparence
+
+Jusqu’à **Shizu / Ifrit**, Rimuru est un **slime**. L’apparence humaine actuelle (corps de Shizu) n’existe **qu’après** l’absorption.
+
+Ne jamais afficher Rimuru en forme Shizu dans le prologue, la grotte, les gobelins, les ogres, la guerre des orcs, ni pendant la mission Shizu.
+
+**Combat vs cinématique :** la forme slime est **portrait / dialogue / cinématique** seulement. Pas de sheets de combat slime (trop complexe). En combat story pré-Shizu : blob procédural. Les PNG de combat du roster = **rimuru-shizu**.
+
+## Continuité visuelle
+
+L’apparence vient du **Story State** (`completed` + mission en cours). Jamais l’inverse.
+
+- Pas de tenue, forme, arme ou coiffure d’un arc ultérieur.
+- Pas d’invention si l’art de période manque : fallback roster + warning, pas un nouveau design.
+- Cinématique et portrait : **la même** `appearanceId` (slime jusqu’à Shizu).
+- Sprite de combat roster : forme versus (`rimuru-shizu`). Le slime n’a pas de kit PNG de combat.
+- **NOUVELLE HISTOIRE** remet tout le monde à l’état initial (sauvegarde `completed: []`).
+- Transformations en scène : beat `{ type: 'transform' }` (VFX puis nouveau body). Pas un swap silencieux.
+
+## Gobelins
+
+Arrivée liée à la **disparition de l’aura de Veldora**. Ordre : **Rigurd → Rigur → Gobta → Ranga** (Ranga après la meute). Pas une entrée arbitraire pour le tutoriel.
+
+## Farmus
+
+Narration = **Farmus**, jamais Falmuth (Falmuth = nom anime / id technique de map si besoin).
+
+Pendant le massacre, Rimuru est **à Dwargon**. Pas de combat où il défend Tempest pendant le massacre. Le gameplay = **contre-attaque** ensuite.
+
+## Diablo
+
+Avant le naming : **Primordial Noir / Noir**. Après que Rimuru donne le nom : **Diablo**. Jamais « Diablo » avant.
+
+## Charybdis
+
+Pas « toute Eurazania attaque Tempest ». C’est **Phobio + le germe** (faction **Clayman**).
+
+## Tests
+
+Valider avec **NOUVELLE HISTOIRE**. Une sauvegarde en cours peut contenir l’ancien scénario.

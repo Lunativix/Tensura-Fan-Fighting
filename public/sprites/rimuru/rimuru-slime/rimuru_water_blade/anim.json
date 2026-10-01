@@ -1,0 +1,22 @@
+{
+  "fighterId": "rimuru",
+  "attackId": "water-blade",
+  "animId": "rimuru_water_blade",
+  "skillName": "Water Blade",
+  "slot": 0,
+  "type": "sequence",
+  "status": "READY FOR ART",
+  "fps": 60,
+  "loop": false,
+  "projectileInSprite": false,
+  "timing": {
+    "source": "AttackData is the source of truth",
+    "releaseFrame": "attack.startup",
+    "startupStart": "0",
+    "startupEnd": "releaseFrame - 1",
+    "activeStart": "releaseFrame",
+    "recoveryStart": "activeEnd + 1"
+  },
+  "form": "rimuru-slime",
+  "note": "Cinematic / portrait only. No combat PNG in this folder. Story fights use the procedural slime blob."
+}

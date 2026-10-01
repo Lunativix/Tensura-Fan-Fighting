@@ -1,0 +1,48 @@
+{
+  "id": "RIMURU_REFERENCE",
+  "character": "Rimuru",
+  "fighterId": "rimuru",
+  "style": "2D anime fighting-game sprite, clean closed lineart, two-tone cel shading, readable silhouette",
+  "forms": {
+    "rimuru-slime": {
+      "use": "cinematic / portrait / dialogue only — no combat PNG sheets",
+      "combat": "story fights use the procedural slime blob; roster combat art is rimuru-shizu",
+      "body": "slime",
+      "silhouette": "teardrop gel blob, wider than tall",
+      "palette": {
+        "gel": "#76C8DE",
+        "highlight": "#ECFCFF",
+        "line": "#182C3C",
+        "blush": "#B0EAF6"
+      },
+      "face": "two short dark dashes for eyes, tiny mouth dash, oval blush marks",
+      "forbidden": "human limbs, Shizu coat, hair, gold eyes"
+    },
+    "rimuru-shizu": {
+      "body": "humanoid Shizu mimic / roster versus",
+      "facing": "right",
+      "hair": "long straight cyan to mid-back, sharp bangs",
+      "eyes": "gold / amber",
+      "coat": "black high collar, white stripe on right shoulder, dark fur collar",
+      "tunic": "navy with gold V piping",
+      "gloves": "black fingerless",
+      "pants": "cool grey",
+      "boots": "dark brown combat boots",
+      "build": "slender androgynous, ~6.5 heads"
+    }
+  },
+  "canvas": {
+    "width": 512,
+    "height": 512,
+    "origin": [0.5, 1],
+    "groundLine": 500,
+    "chroma": "#FF00FF"
+  },
+  "rules": [
+    "Same canvas size for every frame of one clip",
+    "Transparent export after chroma, no crop that changes canvas",
+    "No projectile / beam / explosion in character frames",
+    "Do not put human frames in slime form folders",
+    "Do not produce combat animations for rimuru-slime; portraits and cutscenes only"
+  ]
+}

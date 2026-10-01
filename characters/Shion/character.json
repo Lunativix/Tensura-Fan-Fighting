@@ -1,0 +1,110 @@
+{
+  "name": "Shion",
+  "displayName": "Shion",
+  "gameId": "shion",
+  "pivot": { "x": 0.5, "y": 1.0 },
+  "targetHeightPx": 168,
+  "weapon": "odachi",
+  "fightingStyle": "Bruiser au grand odachi : coups massifs, aura violette d'ogre, degats enormes mais lents",
+  "sourceCellSize": { "note": "cells = sheet width/cols x sheet height/rows; frames are auto-cropped and background-punched at load time" },
+  "animations": {
+    "idle": {
+      "sheet": "spritesheets/Shion_idle.png",
+      "gameFolder": "public/sprites/shion/idle",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": true
+    },
+    "walk": {
+      "sheet": "spritesheets/Shion_walk.png",
+      "gameFolder": "public/sprites/shion/walk",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": true
+    },
+    "run": {
+      "sheet": "spritesheets/Shion_run.png",
+      "gameFolder": "public/sprites/shion/run",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": true
+    },
+    "jump": {
+      "sheet": "spritesheets/Shion_jump.png",
+      "gameFolder": "public/sprites/shion/jump (frames 1-4) + public/sprites/shion/fall (frames 5-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "light_attack": {
+      "sheet": "spritesheets/Shion_light_attack.png",
+      "gameFolder": "public/sprites/shion/attack",
+      "note": "Double taille horizontale puis diagonale au grand odachi",
+      "frames": 8, "grid": "4x2", "fps": 12, "loop": false,
+      "combat": { "damage": 9, "knockback": 200, "activeFrames": [3, 6], "cancelWindow": [7, 8], "invincibility": null }
+    },
+    "heavy_attack": {
+      "sheet": "spritesheets/Shion_heavy_attack.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/heavy_attack) : fracas vertical devastateur",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false,
+      "combat": { "damage": 17, "knockback": 340, "activeFrames": [3, 5], "cancelWindow": null, "invincibility": null }
+    },
+    "skill1_ogre_smash": {
+      "sheet": "spritesheets/Shion_skill1.png",
+      "gameFolder": "public/sprites/shion/skill",
+      "note": "Fracas surpuissant charge d'aura violette + onde de choc au sol",
+      "frames": 8, "grid": "4x2", "fps": 11, "loop": false,
+      "combat": { "damage": 14, "knockback": 300, "activeFrames": [3, 6], "projectile": false, "cancelWindow": null, "invincibility": null }
+    },
+    "skill2_berserk_ogre": {
+      "sheet": "spritesheets/Shion_skill2.png",
+      "gameFolder": "public/sprites/shion/ultimate",
+      "note": "Eruption d'aura violette + taille circulaire a 360 degres",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false,
+      "combat": { "damage": 26, "knockback": 380, "activeFrames": [5, 7], "cancelWindow": null, "invincibility": [1, 4] }
+    },
+    "hurt": {
+      "sheet": "spritesheets/Shion_hurt.png",
+      "gameFolder": "public/sprites/shion/hit",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "guard": {
+      "sheet": "spritesheets/Shion_guard.png",
+      "gameFolder": "public/sprites/shion/block",
+      "note": "Garde derriere le plat de l'odachi",
+      "frames": 6, "grid": "3x2", "fps": 10, "loop": true
+    },
+    "knockback": {
+      "sheet": "spritesheets/Shion_knockback.png",
+      "gameFolder": "public/sprites/shion/knockdown (frames 1-6) + public/sprites/shion/getup (frames 7-8)",
+      "frames": 8, "grid": "4x2", "fps": 10, "loop": false
+    },
+    "ko": {
+      "sheet": "spritesheets/Shion_ko.png",
+      "gameFolder": "public/sprites/shion/dead",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "dash": {
+      "sheet": "spritesheets/Shion_dash.png",
+      "gameFolder": "public/sprites/shion/dash",
+      "frames": 6, "grid": "3x2", "fps": 14, "loop": false
+    },
+    "victory": {
+      "sheet": "spritesheets/Shion_victory.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/victory) : odachi plante au sol, pose fiere",
+      "frames": 8, "grid": "4x2", "fps": 8, "loop": false
+    },
+    "switch_in": {
+      "sheet": "spritesheets/Shion_switch_in.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_in), pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    },
+    "switch_out": {
+      "sheet": "spritesheets/Shion_switch_out.png",
+      "gameFolder": null,
+      "note": "en bibliotheque (animations/switch_out), pour le mode 3v3",
+      "frames": 6, "grid": "3x2", "fps": 12, "loop": false
+    }
+  },
+  "hurtbox": { "width": 48, "height": 128, "offsetY": 0 },
+  "notes": [
+    "Toutes les frames sont detourees automatiquement au chargement (fond blanc -> transparent, crop alpha).",
+    "L'echelle est normalisee a l'ecran vers targetHeightPx par FighterView2D.",
+    "Les valeurs combat (damage/knockback/frames actives) sont indicatives et a synchroniser avec les stats du jeu."
+  ]
+}
