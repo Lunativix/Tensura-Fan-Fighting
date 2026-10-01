@@ -1,6 +1,8 @@
 # Tensura Fan Fighting
 
-Prototype de jeu de combat 2D inspiré de *That Time I Got Reincarnated as a Slime*. Fan project, non commercial.
+**Projet en cours.** Prototype jouable, pas une version finie : roster, sprites, story, online et polish évoluent encore.
+
+Fan project non commercial, inspiré de *That Time I Got Reincarnated as a Slime*.
 
 Phaser 3 · Vite · TypeScript. Version en jeu : **0.11.0** (Tempest RC).
 
